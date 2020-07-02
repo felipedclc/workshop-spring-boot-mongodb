@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.felipedclc.workshopmongo.domain.Post;
 import com.felipedclc.workshopmongo.domain.User;
+import com.felipedclc.workshopmongo.dto.AuthorDTO;
 import com.felipedclc.workshopmongo.repository.PostRepository;
 import com.felipedclc.workshopmongo.repository.UserRepository;
 
@@ -35,11 +36,11 @@ public class Instantiation implements CommandLineRunner {
 		User alex = new User(null, "Alex Green", "alex@gmail.com");
 		User bob = new User(null, "Bob Grey", "bob@gmail.com");
 		
-		Post post1 = new Post(null,sdf.parse("17/05/2019"), "Partiu viagem", "Vou viajar para São Paulo, Inte!", maria);
-		Post post2 = new Post(null,sdf.parse("21/05/2019"), "Bom dia", "Acordei feliz hoje!", maria);
+		userRepository.saveAll(Arrays.asList(maria, alex, bob)); // SALVAR OS USUARIOS ANTES DOS POSTS PARA TREM O ID 
 		
+		Post post1 = new Post(null,sdf.parse("17/05/2019"), "Partiu viagem", "Vou viajar para São Paulo, Inte!", new AuthorDTO(maria));
+		Post post2 = new Post(null,sdf.parse("21/05/2019"), "Bom dia", "Acordei feliz hoje!", new AuthorDTO(maria));
 		
-		userRepository.saveAll(Arrays.asList(maria, alex, bob));
 		postRepository.saveAll(Arrays.asList(post1, post2));
 	}
 }
